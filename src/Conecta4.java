@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Conecta4 {
+   static Scanner sc = new Scanner(System.in);
 
  //Valores de la dimensión del tablero, los pongo final, para que no se pueda alterar valores
 public static final int columnas = 7;
@@ -25,12 +26,35 @@ public static final int filas = 6;
 
             imprimirTablero();
 
+            insertarFicha(fichajugador);
+
 
         }
 
 
 
     }
+
+    private static void insertarFicha(String ficha) {
+        int columna;
+
+        do {
+            System.out.print("Ingresa el número de la columna para insertar ficha (1-7): ");
+
+                columna = sc.nextInt() -1;
+
+        }while (columna < 0 || columna >=7 || tablero[0][columna] !=" ");
+
+        //Para replicar el efecto de gravedad de la ficha, cayendo en el hueco vacío de la columna seleccionada
+        //Comprueba cada celda para ver si al estar vacía puede ser insertada
+        for (int i = filas; i >=0; i--){
+            if (tablero[i][columna] == " "){
+                tablero[i][columna] = ficha;
+            }
+        }
+
+    }
+
     public static void iniciarTablero(){
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
@@ -39,13 +63,17 @@ public static final int filas = 6;
         }
     }
     public static void imprimirTablero(){
-
-        for (int j = 0; j < filas; j++) {
-            System.out.print("  " + (j + 1) + " ");
+        // Para enumerar las columnas
+        for (int i = 0; i < filas; i++) {
+            System.out.print("  " + (i + 1) + " ");
         }
         System.out.println();
-    }
 
+        for(int j = 0; j < filas; j++){
+            System.out.println("----");
+        }
+        System.out.println("-");
+    }
 
     }
 
