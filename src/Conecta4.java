@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
-
+//Juego Conecta 4
 public class Conecta4 {
     static Scanner sc = new Scanner(System.in);
     static Random rd = new Random();
@@ -43,6 +43,8 @@ public class Conecta4 {
 
             imprimirTablero();
 
+            comprobarColumnasFilasyDiagonal(fichajugador, fichamaquina);
+
             insertarFichaMaquina(fichamaquina);
 
             ganar = verificarVictoria(fichamaquina);
@@ -60,6 +62,38 @@ public class Conecta4 {
 
 
     }
+
+    public static void comprobarColumnasFilasyDiagonal(String fichajugador, String fichamaquina) {
+        // Aquí comprobamos las filas de la parte baja del tablero hacia arriba
+        for (int i = filas - 1; i >= 0; i--) {
+            for (int j = 0; j < columnas; j++) {
+
+                // Verificamos si hay 3 fichas consecutivas del jugador en la fila para colocar una ficha delante o detrás
+                if (j + 2 < columnas && tablero[i][j].equals(fichajugador)
+                        && tablero[i][j + 1].equals(fichajugador) && tablero[i][j + 2].equals(fichajugador)) {
+
+                    // Bloquea hacia la derecha si la celda está vacía y no está "en el aire"
+                    if (j + 3 < columnas && tablero[i][j + 3].equals(" ") &&
+                            // Verifica que no haya un espacio vacío debajo para que la ficha no quede "volando"
+                            (i == filas - 1 || !tablero[i + 1][j + 3].equals(" "))) {
+                        // Si se da alguna condición, la máquina bloqueará con una ficha
+                        tablero[i][j + 3] = fichamaquina;
+                        return;
+                    }
+
+                    // Bloquea hacia la izquierda si la celda está vacía y no está "en el aire"
+                    if (j - 1 >= 0 && tablero[i][j - 1].equals(" ") &&
+                            // Verifica que no haya un espacio vacío debajo para que la ficha no quede "volando"
+                            (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
+                        // Si se da alguna condición, la máquina bloqueará con una ficha
+                        tablero[i][j - 1] = fichamaquina;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void insertarFicha(String ficha) {
         int columna;
