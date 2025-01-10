@@ -43,7 +43,11 @@ public class Conecta4 {
 
             imprimirTablero();
 
-            comprobarColumnasFilasyDiagonal(fichajugador, fichamaquina);
+            comprobarFilas(fichajugador, fichamaquina);
+
+            comprobarColumnas(fichajugador, fichamaquina);
+
+            comprobarDiagonales(fichajugador, fichamaquina);
 
             insertarFichaMaquina(fichamaquina);
 
@@ -63,7 +67,7 @@ public class Conecta4 {
 
     }
 
-    public static void comprobarColumnasFilasyDiagonal(String fichajugador, String fichamaquina) {
+    public static void comprobarFilas(String fichajugador, String fichamaquina) {
         // Aquí comprobamos las filas de la parte baja del tablero hacia arriba
         for (int i = filas - 1; i >= 0; i--) {
             for (int j = 0; j < columnas; j++) {
@@ -87,6 +91,74 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j - 1] = fichamaquina;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void comprobarColumnas(String fichajugador, String fichamaquina) {
+        // Aquí comprobamos las columnas desde la parte baja del tablero hacia arriba
+        for (int j = 0; j < columnas; j++) {
+            for (int i = filas - 1; i >= 0; i--) {
+
+                // Verificamos si hay 3 fichas consecutivas del jugador en la columna
+                if (i + 2 < filas && tablero[i][j].equals(fichajugador)
+                        && tablero[i + 1][j].equals(fichajugador) && tablero[i + 2][j].equals(fichajugador)) {
+
+                    // Bloquea hacia arriba colocando la ficha en la celda superior si está vacía
+                    if (i - 1 >= 0 && tablero[i - 1][j].equals(" ")) {
+                        // Si se da alguna condición, la máquina bloqueará con una ficha
+                        tablero[i - 1][j] = fichamaquina;
+                        return;
+                    }
+
+                    // No es necesario bloquear hacia abajo en columnas, ya que las fichas caen hacia abajo
+                }
+            }
+        }
+    }
+
+    public static void comprobarDiagonales(String fichajugador, String fichamaquina) {
+        // Aquí comprobamos las diagonales desde la parte baja del tablero hacia arriba
+        for (int i = filas - 1; i >= 0; i--) {
+            for (int j = 0; j < columnas; j++) {
+
+                // Verificación de diagonales de arriba-izquierda a abajo-derecha
+                if (i + 2 < filas && j + 2 < columnas && tablero[i][j].equals(fichajugador)
+                        && tablero[i + 1][j + 1].equals(fichajugador) && tablero[i + 2][j + 2].equals(fichajugador)) {
+
+                    // Bloquea hacia abajo-derecha si la celda está vacía y no está "en el aire"
+                    if (i + 3 < filas && j + 3 < columnas && tablero[i + 3][j + 3].equals(" ")
+                            && (i + 3 == filas - 1 || !tablero[i + 4][j + 3].equals(" "))) {
+                        tablero[i + 3][j + 3] = fichamaquina;
+                        return;
+                    }
+
+                    // Bloquea hacia arriba-izquierda si la celda está vacía y no está "en el aire"
+                    if (i - 1 >= 0 && j - 1 >= 0 && tablero[i - 1][j - 1].equals(" ")
+                            && (i == filas - 1 || !tablero[i][j - 1].equals(" "))) {
+                        tablero[i - 1][j - 1] = fichamaquina;
+                        return;
+                    }
+                }
+
+                // Verificación de diagonales de abajo-izquierda a arriba-derecha
+                if (i - 2 >= 0 && j + 2 < columnas && tablero[i][j].equals(fichajugador)
+                        && tablero[i - 1][j + 1].equals(fichajugador) && tablero[i - 2][j + 2].equals(fichajugador)) {
+
+                    // Bloquea hacia arriba-derecha si la celda está vacía y no está "en el aire"
+                    if (i - 3 >= 0 && j + 3 < columnas && tablero[i - 3][j + 3].equals(" ")
+                            && (i - 3 == filas - 1 || !tablero[i - 2][j + 3].equals(" "))) {
+                        tablero[i - 3][j + 3] = fichamaquina;
+                        return;
+                    }
+
+                    // Bloquea hacia abajo-izquierda si la celda está vacía y no está "en el aire"
+                    if (i + 1 < filas && j - 1 >= 0 && tablero[i + 1][j - 1].equals(" ")
+                            && (i + 1 == filas - 1 || !tablero[i + 2][j - 1].equals(" "))) {
+                        tablero[i + 1][j - 1] = fichamaquina;
                         return;
                     }
                 }
