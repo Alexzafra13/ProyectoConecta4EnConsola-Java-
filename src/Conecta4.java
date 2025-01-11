@@ -19,6 +19,190 @@ public class Conecta4 {
         String fichajugador = "X";
         String fichamaquina = "O";
         boolean ganar = false;
+        String partidanueva;
+
+        System.out.println("""
+                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+                █░██░██░██░██░██░██░██░██░██░░░░░░░░░░█
+                █░██░██░██░██░██░██░██░██░██░░░░░░░░░░█
+                █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                ░░█░░░░█▀▀▀█░█▀▀█░█▀▀▄░▀█▀░█▄░░█░█▀▀█░░
+                ░░█░░░░█░░░█░█▄▄█░█░░█░░█░░█░█░█░█░▄▄░░
+                ░░█▄▄█░█▄▄▄█░█░░█░█▄▄▀░▄█▄░█░░▀█░█▄▄█░░
+                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░""");
+
+        System.out.println("""
+                         ────────────────────────────────────────────────      \s
+                ──────── │                 ┌─────────┐                  │───────
+                \\                          │CONECTA-4│                         /
+                 \\       │                 └─────────┘                  │     /\s
+                 /       ────────────────────────────────────────────────     \\\s
+                /__________)                                        (__________\\""");
+
+        //1. Iniciamos tablero vacío
+        iniciarTablero();
+
+        System.out.println("""
+                Elija un modo de juego:
+                1. Modo Fácil
+                2. Modo Medio
+                3. Modo Experto""");
+
+        menu = sc.nextInt();
+
+        do {
+
+
+            switch (menu) {
+
+                case 1:
+                    // Modo Fácil
+                    while (!ganar) {
+
+                        //Turno del jugador
+                        imprimirTablero();
+
+                        insertarFicha(fichajugador);
+
+                        ganar = verificarVictoria(fichajugador);
+
+                        //Para cuando gana el jugador
+
+                        if (ganar) {
+                            System.out.println("""
+                                      XXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                     X     X X      +------------+      X
+                                    X  X  X XX      |¡HAS GANADO!|      X
+                                     X     X X      +------------+      X
+                                      XXXXX  X                          X
+                                        X    XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                        X   X                           \s
+                                     XXXXXXX                            \s
+                                    X   X                               \s
+                                        X                               \s
+                                       XXX                              \s
+                                      X   X                             \s
+                                     X     X             \s""");
+                            break;
+                        }
+                        //Turno de la IA
+
+                        imprimirTablero();
+
+                        insertarFichaMaquina(fichamaquina);
+
+                        ganar = verificarVictoria(fichamaquina);
+
+                        if (ganar) {
+
+                            System.out.println("La Maquína ha ganado");
+
+                            break;
+                        }
+
+
+                    }
+
+                case 2:
+                    // Modo Medio
+                    while (!ganar) {
+
+                        //Turno del jugador
+                        imprimirTablero();
+
+                        insertarFicha(fichajugador);
+
+                        ganar = verificarVictoria(fichajugador);
+
+                        //Para cuando gana el jugador
+
+                        if (ganar) {
+                            System.out.println("¡Has Ganado!");
+                            break;
+                        }
+                        //Turno de la IA
+
+                        imprimirTablero();
+
+                        comprobarFilas(fichajugador, fichamaquina);
+
+                        comprobarColumnas(fichajugador, fichamaquina);
+
+                        comprobarDiagonales(fichajugador, fichamaquina);
+
+                        insertarFichaMaquina(fichamaquina);
+
+                        ganar = verificarVictoria(fichamaquina);
+
+                        if (ganar) {
+
+                            System.out.println("La Maquína ha ganado");
+
+                            break;
+                        }
+
+
+                    }
+
+
+                case 3:
+                    // Modo Difícil
+
+                    while (!ganar) {
+
+                        //Turno del jugador
+                        imprimirTablero();
+
+                        insertarFicha(fichajugador);
+
+                        ganar = verificarVictoria(fichajugador);
+
+                        //Para cuando gana el jugador
+
+                        if (ganar) {
+                            System.out.println("¡Has Ganado!");
+                            break;
+                        }
+                        //Turno de la IA
+
+                        imprimirTablero();
+
+                        preveerJugadaFila(fichajugador, fichamaquina);
+
+                        comprobarFilas(fichajugador, fichamaquina);
+
+                        comprobarColumnas(fichajugador, fichamaquina);
+
+                        comprobarDiagonales(fichajugador, fichamaquina);
+
+                        insertarFichaMaquina(fichamaquina);
+
+                        ganar = verificarVictoria(fichamaquina);
+
+                        if (ganar) {
+
+                            System.out.println("La Maquína ha ganado");
+
+                            break;
+                        }
+
+
+                    }
+                default:
+                    System.out.println("Inserte una opción válida por favor");
+
+            }
+
+            System.out.println("¿Quieres jugar otra partida? (sí/no)");
+
+            partidanueva = sc.next();
+
+        }while (partidanueva.equalsIgnoreCase("si"));
+
+
+
 
         //1. Iniciamos tablero vacío
         iniciarTablero();
@@ -66,6 +250,33 @@ public class Conecta4 {
 
 
     }
+    public static void preveerJugadaFila(String fichajugador, String fichamaquina) {
+        // Aquí comprobamos las filas de la parte baja del tablero hacia arriba
+        for (int i = filas - 1; i >= 0; i--) {
+            for (int j = 0; j < columnas; j++) {
+                // Verificamos si hay 2 fichas consecutivas del jugador en la fila
+                if (j + 1 < columnas && tablero[i][j].equals(fichajugador) && tablero[i][j + 1].equals(fichajugador)) {
+
+                    // Bloquea hacia la derecha si la celda está vacía y no está "en el aire"
+                    if (j + 2 < columnas && tablero[i][j + 2].equals(" ") &&
+                            (i == filas - 1 || !tablero[i + 1][j + 2].equals(" "))) {
+                        // Si se da alguna condición, la máquina bloqueará con una ficha
+                        tablero[i][j + 2] = fichamaquina;
+                        return;
+                    }
+
+                    // Bloquea hacia la izquierda si la celda está vacía y no está "en el aire"
+                    if (j - 1 >= 0 && tablero[i][j - 1].equals(" ") &&
+                            (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
+                        // Si se da alguna condición, la máquina bloqueará con una ficha
+                        tablero[i][j - 1] = fichamaquina;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void comprobarFilas(String fichajugador, String fichamaquina) {
         // Aquí comprobamos las filas de la parte baja del tablero hacia arriba
