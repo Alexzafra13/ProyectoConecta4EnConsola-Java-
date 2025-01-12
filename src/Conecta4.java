@@ -18,7 +18,7 @@ public class Conecta4 {
         int menu;
         String fichajugador = "X";
         String fichamaquina = "O";
-        boolean ganar = false;
+        boolean ganar;
         String partidanueva;
 
         System.out.println("""
@@ -33,6 +33,8 @@ public class Conecta4 {
                 ░░█▄▄█░█▄▄▄█░█░░█░█▄▄▀░▄█▄░█░░▀█░█▄▄█░░
                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░""");
 
+        System.out.println();
+
         System.out.println("""
                          ────────────────────────────────────────────────      \s
                 ──────── │                 ┌─────────┐                  │───────
@@ -41,24 +43,28 @@ public class Conecta4 {
                  /       ────────────────────────────────────────────────     \\\s
                 /__________)                                        (__________\\""");
 
-        //1. Iniciamos tablero vacío
-        iniciarTablero();
 
-        System.out.println("""
+
+
+        do {
+            System.out.println("""
                 Elija un modo de juego:
                 1. Modo Fácil
                 2. Modo Medio
                 3. Modo Experto""");
 
-        menu = sc.nextInt();
-
-        do {
-
+            menu = sc.nextInt();
 
             switch (menu) {
 
+
                 case 1:
-                    // Modo Fácil
+
+                    ganar = false;
+
+                    iniciarTablero();
+
+                    // MODO FÁCIL
                     while (!ganar) {
 
                         //Turno del jugador
@@ -72,19 +78,36 @@ public class Conecta4 {
 
                         if (ganar) {
                             System.out.println("""
-                                      XXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                     X     X X      +------------+      X
-                                    X  X  X XX      |¡HAS GANADO!|      X
-                                     X     X X      +------------+      X
-                                      XXXXX  X                          X
-                                        X    XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                        X   X                           \s
-                                     XXXXXXX                            \s
-                                    X   X                               \s
-                                        X                               \s
-                                       XXX                              \s
-                                      X   X                             \s
-                                     X     X             \s""");
+                                    .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
+                                           :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
+                                           .$                            $.       \s
+                                           .$.      ··············      .$.       \s
+                                           .&:      :¡HAS GANADO!:      :$ .      \s
+                                         . .&.      ··············      ;X .;     \s
+                                         :  $.                          ;$  :     \s
+                                         ...&                            & ..     \s
+                                           .Xx$& &&&$  &&&&&&$  .&& :&&$x$        \s
+                                    .       ;$&x+&  & &&&&&&&&& &;&& &&&$;   ..   \s
+                                    :     .:     & && && ¬ ¬ && & &&       :. .   \s
+                                    .     . ..   && & &&& o && && &X    .:. ...   \s
+                                          :;;.    &  &X &&&&& && &&     :  :.     \s
+                                                  x&&  + $&    &&&      .::       \s
+                                                    &&&&     &&&X                 \s
+                                           .;;.        &  . +&    :.              \s
+                                          .:  .     .  &&   &&  :  .     .;;;.    \s
+                                        ... :;.     .  &&   && . :;.     .. ..    :
+                                        . .:.       .  &&   &&  ..       .;+;.    ;
+                                        ..            $& &+;&&                    :
+                                                      && &;& &&                   \s
+                                     .::...::......  ;& && &x&&  :.........;+:.   \s
+                                    :.....:;;;;;;;:  && &  x& &+ ;;:;:...;+:...::::
+                                    .   ...          & &.   &&&&         .  .  ...:
+                                    ...::.  ..      &&;&     & &     .::. ..:...  \s
+                                    :..    .......      :xXx & &   .. ...    .... \s
+                                    :      :.  ...:&&&&X     & &&&...   ::     .: \s
+                                                   +  $       & ..                \s
+                                    &&&&&&&&&&&&&&&X   &&&&&&&   &&&&&&&&&&&&&&&&&&
+                                    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&""");
                             break;
                         }
                         //Turno de la IA
@@ -97,16 +120,47 @@ public class Conecta4 {
 
                         if (ganar) {
 
-                            System.out.println("La Maquína ha ganado");
+                            System.out.println("""
+                                    ________________                                     \s
+                                       |'-.--._ _________:                               \s
+                                       |  /    |  __    __\\         +====================+
+                                       | |  _  | [\\_\\= [\\_\\         |LA MAQUINA HA GANADO|
+                                       | |.' '. \\.........|         +====================+
+                                       | ( <)  ||:       :|_                             \s
+                                        \\ '._.' | :.....: |_(o                           \s
+                                         '-\\_   \\ .------./                              \s
+                                         _   \\   ||.---.||  _                            \s
+                                        / \\  '-._|/\\n~~\\n' | \\                           \s
+                                       (| []=.--[===[()]===[) |                          \s
+                                       <\\_/  \\_______/ _.' /_/                           \s
+                                       ///            (_/_/                              \s
+                                       |\\\\            [\\\\                                \s
+                                       ||:|           | I|                               \s
+                                       |::|           | I|                               \s
+                                       ||:|           | I|                               \s
+                                       ||:|           : \\:                               \s
+                                       |\\:|            \\I|                               \s
+                                       :/\\:            ([])                              \s
+                                       ([])             [|                               \s
+                                        ||              |\\_                              \s
+                                       _/_\\_            [ -'-.__                         \s
+                                      <]   \\>            \\_____.>                        \s
+                                        \\__/                                             \s""");
 
                             break;
                         }
 
 
                     }
-
+                    break;
+                //------------------------------------------------------------------------------------------------------
                 case 2:
-                    // Modo Medio
+
+                    ganar = false;
+
+                    iniciarTablero();
+
+                    // MODO MEDIO
                     while (!ganar) {
 
                         //Turno del jugador
@@ -119,7 +173,37 @@ public class Conecta4 {
                         //Para cuando gana el jugador
 
                         if (ganar) {
-                            System.out.println("¡Has Ganado!");
+                            System.out.println("""
+                                    .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
+                                           :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
+                                           .$                            $.       \s
+                                           .$.      ··············      .$.       \s
+                                           .&:      :¡HAS GANADO!:      :$ .      \s
+                                         . .&.      ··············      ;X .;     \s
+                                         :  $.                          ;$  :     \s
+                                         ...&                            & ..     \s
+                                           .Xx$& &&&$  &&&&&&$  .&& :&&$x$        \s
+                                    .       ;$&x+&  & &&&&&&&&& &;&& &&&$;   ..   \s
+                                    :     .:     & && && ¬ ¬ && & &&       :. .   \s
+                                    .     . ..   && & &&& o && && &X    .:. ...   \s
+                                          :;;.    &  &X &&&&& && &&     :  :.     \s
+                                                  x&&  + $&    &&&      .::       \s
+                                                    &&&&     &&&X                 \s
+                                           .;;.        &  . +&    :.              \s
+                                          .:  .     .  &&   &&  :  .     .;;;.    \s
+                                        ... :;.     .  &&   && . :;.     .. ..    :
+                                        . .:.       .  &&   &&  ..       .;+;.    ;
+                                        ..            $& &+;&&                    :
+                                                      && &;& &&                   \s
+                                     .::...::......  ;& && &x&&  :.........;+:.   \s
+                                    :.....:;;;;;;;:  && &  x& &+ ;;:;:...;+:...::::
+                                    .   ...          & &.   &&&&         .  .  ...:
+                                    ...::.  ..      &&;&     & &     .::. ..:...  \s
+                                    :..    .......      :xXx & &   .. ...    .... \s
+                                    :      :.  ...:&&&&X     & &&&...   ::     .: \s
+                                                   +  $       & ..                \s
+                                    &&&&&&&&&&&&&&&X   &&&&&&&   &&&&&&&&&&&&&&&&&&
+                                    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&""");
                             break;
                         }
                         //Turno de la IA
@@ -138,17 +222,48 @@ public class Conecta4 {
 
                         if (ganar) {
 
-                            System.out.println("La Maquína ha ganado");
+                            System.out.println("""
+                                    ________________                                     \s
+                                      |'-.--._ _________:                               \s
+                                      |  /    |  __    __\\         +====================+
+                                      | |  _  | [\\_\\= [\\_\\         |LA MAQUINA HA GANADO|
+                                      | |.' '. \\.........|         +====================+
+                                      | ( <)  ||:       :|_                             \s
+                                       \\ '._.' | :.....: |_(o                           \s
+                                        '-\\_   \\ .------./                              \s
+                                        _   \\   ||.---.||  _                            \s
+                                       / \\  '-._|/\\n~~\\n' | \\                           \s
+                                      (| []=.--[===[()]===[) |                          \s
+                                      <\\_/  \\_______/ _.' /_/                           \s
+                                      ///            (_/_/                              \s
+                                      |\\\\            [\\\\                                \s
+                                      ||:|           | I|                               \s
+                                      |::|           | I|                               \s
+                                      ||:|           | I|                               \s
+                                      ||:|           : \\:                               \s
+                                      |\\:|            \\I|                               \s
+                                      :/\\:            ([])                              \s
+                                      ([])             [|                               \s
+                                       ||              |\\_                              \s
+                                      _/_\\_            [ -'-.__                         \s
+                                     <]   \\>            \\_____.>                        \s
+                                       \\__/                                             \s""");
 
                             break;
                         }
 
 
                     }
+                    break;
 
-
+                //-----------------------------------------------------------------------------------------------------
                 case 3:
-                    // Modo Difícil
+
+                    ganar = false;
+
+                    iniciarTablero();
+
+                    // MODO DIFÍCIL
 
                     while (!ganar) {
 
@@ -162,7 +277,37 @@ public class Conecta4 {
                         //Para cuando gana el jugador
 
                         if (ganar) {
-                            System.out.println("¡Has Ganado!");
+                            System.out.println("""
+                                    .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
+                                           :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
+                                           .$                            $.       \s
+                                           .$.      ··············      .$.       \s
+                                           .&:      :¡HAS GANADO!:      :$ .      \s
+                                         . .&.      ··············      ;X .;     \s
+                                         :  $.                          ;$  :     \s
+                                         ...&                            & ..     \s
+                                           .Xx$& &&&$  &&&&&&$  .&& :&&$x$        \s
+                                    .       ;$&x+&  & &&&&&&&&& &;&& &&&$;   ..   \s
+                                    :     .:     & && && ¬ ¬ && & &&       :. .   \s
+                                    .     . ..   && & &&& o && && &X    .:. ...   \s
+                                          :;;.    &  &X &&&&& && &&     :  :.     \s
+                                                  x&&  + $&    &&&      .::       \s
+                                                    &&&&     &&&X                 \s
+                                           .;;.        &  . +&    :.              \s
+                                          .:  .     .  &&   &&  :  .     .;;;.    \s
+                                        ... :;.     .  &&   && . :;.     .. ..    :
+                                        . .:.       .  &&   &&  ..       .;+;.    ;
+                                        ..            $& &+;&&                    :
+                                                      && &;& &&                   \s
+                                     .::...::......  ;& && &x&&  :.........;+:.   \s
+                                    :.....:;;;;;;;:  && &  x& &+ ;;:;:...;+:...::::
+                                    .   ...          & &.   &&&&         .  .  ...:
+                                    ...::.  ..      &&;&     & &     .::. ..:...  \s
+                                    :..    .......      :xXx & &   .. ...    .... \s
+                                    :      :.  ...:&&&&X     & &&&...   ::     .: \s
+                                                   +  $       & ..                \s
+                                    &&&&&&&&&&&&&&&X   &&&&&&&   &&&&&&&&&&&&&&&&&&
+                                    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&""");
                             break;
                         }
                         //Turno de la IA
@@ -183,13 +328,41 @@ public class Conecta4 {
 
                         if (ganar) {
 
-                            System.out.println("La Maquína ha ganado");
+                            System.out.println("""
+                                    ________________                                     \s
+                                       |'-.--._ _________:                               \s
+                                       |  /    |  __    __\\         +====================+
+                                       | |  _  | [\\_\\= [\\_\\         |LA MAQUINA HA GANADO|
+                                       | |.' '. \\.........|         +====================+
+                                       | ( <)  ||:       :|_                             \s
+                                        \\ '._.' | :.....: |_(o                           \s
+                                         '-\\_   \\ .------./                              \s
+                                         _   \\   ||.---.||  _                            \s
+                                        / \\  '-._|/\\n~~\\n' | \\                           \s
+                                       (| []=.--[===[()]===[) |                          \s
+                                       <\\_/  \\_______/ _.' /_/                           \s
+                                       ///            (_/_/                              \s
+                                       |\\\\            [\\\\                                \s
+                                       ||:|           | I|                               \s
+                                       |::|           | I|                               \s
+                                       ||:|           | I|                               \s
+                                       ||:|           : \\:                               \s
+                                       |\\:|            \\I|                               \s
+                                       :/\\:            ([])                              \s
+                                       ([])             [|                               \s
+                                        ||              |\\_                              \s
+                                       _/_\\_            [ -'-.__                         \s
+                                      <]   \\>            \\_____.>                        \s
+                                        \\__/                                             \s""");
 
                             break;
                         }
 
 
                     }
+
+                    break;
+                //-----------------------------------------------------------------------------------------------------
                 default:
                     System.out.println("Inserte una opción válida por favor");
 
@@ -199,55 +372,27 @@ public class Conecta4 {
 
             partidanueva = sc.next();
 
+            if (partidanueva.equalsIgnoreCase("sí")) {
+
+                // Reiniciamos el tablero y las variables necesarias
+                iniciarTablero();
+                ganar = false;
+
+                // Volver a mostrar el menú para seleccionar la dificultad
+                System.out.println("""
+                        Elija un modo de juego:
+                        1. Modo Fácil
+                        2. Modo Medio
+                        3. Modo Experto
+                        """);
+                menu = sc.nextInt();
+
+            }
+
         }while (partidanueva.equalsIgnoreCase("si"));
 
 
-
-
-        //1. Iniciamos tablero vacío
-        iniciarTablero();
-
-        //2. Aquí empieza la partida con un bucle hasta terminar
-        while (!ganar) {
-
-            //Turno del jugador
-            imprimirTablero();
-
-            insertarFicha(fichajugador);
-
-            ganar = verificarVictoria(fichajugador);
-
-            //Para cuando gana el jugador
-
-            if (ganar) {
-                System.out.println("¡Has Ganado!");
-                break;
-            }
-            //Turno de la IA
-
-            imprimirTablero();
-
-            comprobarFilas(fichajugador, fichamaquina);
-
-            comprobarColumnas(fichajugador, fichamaquina);
-
-            comprobarDiagonales(fichajugador, fichamaquina);
-
-            insertarFichaMaquina(fichamaquina);
-
-            ganar = verificarVictoria(fichamaquina);
-
-            if (ganar) {
-
-                System.out.println("La Maquína ha ganado");
-
-                break;
-            }
-
-
-
-        }
-
+        System.out.println("¡Gracias por jugar!");
 
     }
     public static void preveerJugadaFila(String fichajugador, String fichamaquina) {
