@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class Conecta4 {
     static Scanner sc = new Scanner(System.in);
     static Random rd = new Random();
+    // Variable de control
+    static boolean fichaInsertada;
+
 
     //Valores de la dimensión del tablero, los pongo final, para que no se pueda alterar valores
     public static final int columnas = 7;
@@ -20,6 +23,7 @@ public class Conecta4 {
         String fichamaquina = "O";
         boolean ganar;
         String partidanueva;
+
 
         System.out.println("""
                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -61,6 +65,8 @@ public class Conecta4 {
 
 
                 case 1:
+
+                    System.out.println("Modo Fácil");
 
                     ganar = false;
 
@@ -175,6 +181,8 @@ public class Conecta4 {
                 //------------------------------------------------------------------------------------------------------
                 case 2:
 
+                    System.out.println("Modo Medio");
+
                     ganar = false;
 
                     iniciarTablero();
@@ -236,15 +244,26 @@ public class Conecta4 {
                         }
                         //Turno de la IA
 
+                        // Reiniciamos la condición en cada turno para que compruebe cada turno de nuevo
+                        fichaInsertada = false;
+
                         imprimirTablero();
 
-                        comprobarFilas(fichajugador, fichamaquina);
+                        if (!fichaInsertada){
+                            comprobarFilas(fichajugador, fichamaquina);
+                        }
 
-                        comprobarColumnas(fichajugador, fichamaquina);
+                        if (!fichaInsertada){
+                            comprobarColumnas(fichajugador, fichamaquina);
+                        }
 
-                        comprobarDiagonales(fichajugador, fichamaquina);
+                        if (!fichaInsertada) {
+                            comprobarDiagonales(fichajugador, fichamaquina);
+                        }
 
-                        insertarFichaMaquina(fichamaquina);
+                        if (!fichaInsertada) {
+                            // Solo insertar ficha si no se insertó en las funciones anteriores
+                            insertarFichaMaquina(fichamaquina); }
 
                         ganar = verificarVictoria(fichamaquina);
 
@@ -294,6 +313,7 @@ public class Conecta4 {
 
                 //-----------------------------------------------------------------------------------------------------
                 case 3:
+                    System.out.println("Modo Difícil");
 
                     ganar = false;
 
@@ -356,18 +376,27 @@ public class Conecta4 {
                             break;
                         }
                         //Turno de la IA
+                        fichaInsertada = false;
 
                         imprimirTablero();
 
-                        preveerJugadaFila(fichajugador, fichamaquina);
+                        if (!fichaInsertada){
+                            preveerJugadaFila(fichajugador, fichamaquina);
+                        }
+                        if(!fichaInsertada){
+                            comprobarFilas(fichajugador, fichamaquina);
+                        }
+                        if (!fichaInsertada){
+                            comprobarColumnas(fichajugador, fichamaquina);
+                        }
+                        if (!fichaInsertada){
+                            comprobarDiagonales(fichajugador, fichamaquina);
+                        }
 
-                        comprobarFilas(fichajugador, fichamaquina);
 
-                        comprobarColumnas(fichajugador, fichamaquina);
-
-                        comprobarDiagonales(fichajugador, fichamaquina);
-
-                        insertarFichaMaquina(fichamaquina);
+                        if (!fichaInsertada) {
+                            // Solo insertar ficha si no se insertó en las funciones anteriores
+                            insertarFichaMaquina(fichamaquina); }
 
                         ganar = verificarVictoria(fichamaquina);
 
@@ -419,11 +448,13 @@ public class Conecta4 {
 
                 case 4:
 
+                    System.out.println("Modo Demencial");
+
                     ganar = false;
 
                     iniciarTablero();
 
-                    // MODO DIFÍCIL
+                    // MODO DEMENCIAL
 
                     while (!ganar) {
 
@@ -481,19 +512,34 @@ public class Conecta4 {
                         }
                         //Turno de la IA
 
+                        fichaInsertada = false;
+
                         imprimirTablero();
 
-                        preveerJugadaFila(fichajugador, fichamaquina);
+                        if (!fichaInsertada){
+                            priorizarVictoriaMaquina(fichamaquina);
+                        }
 
-                        comprobarFilas(fichajugador, fichamaquina);
+                        if (!fichaInsertada){
+                            preveerJugadaColumna(fichajugador, fichamaquina);
+                        }
+                        if (!fichaInsertada){
+                            preveerJugadaFila(fichajugador, fichamaquina);
+                        }
 
-                        preveerColumna(fichajugador, fichamaquina);
-
-                        comprobarColumnas(fichajugador, fichamaquina);
-
+                        if (!fichaInsertada){
+                            comprobarFilas(fichajugador, fichamaquina);
+                        }
+                        if (!fichaInsertada){
+                            comprobarColumnas(fichajugador, fichamaquina);
+                        }
+                        if (!fichaInsertada){
+                            comprobarDiagonales(fichajugador,fichamaquina);
+                        }
                         comprobarDiagonales(fichajugador, fichamaquina);
-
-                        insertarFichaMaquina(fichamaquina);
+                        if (!fichaInsertada) {
+                            // Solo insertar ficha si no se insertó en las funciones anteriores
+                            insertarFichaMaquina(fichamaquina); }
 
                         ganar = verificarVictoria(fichamaquina);
 
@@ -578,6 +624,28 @@ public class Conecta4 {
         System.out.println("¡Gracias por jugar!");
 
     }
+    public static void priorizarVictoriaMaquina(String fichamaquina) {
+        // Recorremos las celdas para ver las posibles jugadas
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (tablero[i][j].equals(" ")) {
+                    // Verificamos si es una jugada válida (debe haber una ficha debajo o estar en la última fila vacía)
+                    if (i == filas - 1 || !tablero[i + 1][j].equals(" ")) {
+                        // Colocamos temporalmente la ficha para después verificar si ganaría
+                        tablero[i][j] = fichamaquina;
+                        // Si ganaría, la insertamos
+                        if (verificarVictoria(fichamaquina)) {
+                            fichaInsertada = true;
+                            return;
+                        }
+                        // Pero si no, restauramos el tablero
+                        tablero[i][j] = " ";
+                    }
+                }
+            }
+        }
+    }
+
     public static void preveerJugadaFila(String fichajugador, String fichamaquina) {
         // Aquí comprobamos las filas de la parte baja del tablero hacia arriba
         for (int i = filas - 1; i >= 0; i--) {
@@ -590,6 +658,8 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j + 2].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j + 2] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
 
@@ -598,6 +668,8 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j - 1] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
                 }
@@ -605,7 +677,7 @@ public class Conecta4 {
         }
     }
 
-    public static void preveerColumna(String fichajugador, String fichamaquina) {
+    public static void preveerJugadaColumna(String fichajugador, String fichamaquina) {
 
         for (int j = 0; j < columnas; j++) {
             // Revisar de abajo hacia arriba en cada columna
@@ -617,6 +689,8 @@ public class Conecta4 {
                     // Bloquear colocando la ficha de la máquina en la siguiente celda hacia abajo, si está vacía
                     if (i - 2 >= 0 && tablero[i - 2][j].equals(" ")) {
                         tablero[i - 2][j] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
                 }
@@ -640,6 +714,8 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j + 3].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j + 3] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
 
@@ -649,6 +725,8 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j - 1] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
                 }
@@ -669,6 +747,8 @@ public class Conecta4 {
                     if (i - 1 >= 0 && tablero[i - 1][j].equals(" ")) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i - 1][j] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
 
@@ -691,6 +771,8 @@ public class Conecta4 {
                     if (i + 3 < filas && j + 3 < columnas && tablero[i + 3][j + 3].equals(" ")
                             && (i + 3 == filas - 1 || !tablero[i + 4][j + 3].equals(" "))) {
                         tablero[i + 3][j + 3] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
 
@@ -698,6 +780,8 @@ public class Conecta4 {
                     if (i - 1 >= 0 && j - 1 >= 0 && tablero[i - 1][j - 1].equals(" ")
                             && (i == filas - 1 || !tablero[i][j - 1].equals(" "))) {
                         tablero[i - 1][j - 1] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
                 }
@@ -710,6 +794,8 @@ public class Conecta4 {
                     if (i - 3 >= 0 && j + 3 < columnas && tablero[i - 3][j + 3].equals(" ")
                             && (i - 3 == filas - 1 || !tablero[i - 2][j + 3].equals(" "))) {
                         tablero[i - 3][j + 3] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
 
@@ -717,6 +803,8 @@ public class Conecta4 {
                     if (i + 1 < filas && j - 1 >= 0 && tablero[i + 1][j - 1].equals(" ")
                             && (i + 1 == filas - 1 || !tablero[i + 2][j - 1].equals(" "))) {
                         tablero[i + 1][j - 1] = fichamaquina;
+                        // Si una función ha llegado a insertar ficha, esto actuaria como una variable de control
+                        fichaInsertada = true;
                         return;
                     }
                 }
@@ -824,7 +912,7 @@ public class Conecta4 {
         for (int i = filas - 1; i >= 0; i--) {
             if (tablero[i][columna].equals(" ")) {
                 tablero[i][columna] = ficha;
-                break;
+                return;
             }
         }
     }
