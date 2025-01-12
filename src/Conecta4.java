@@ -51,7 +51,9 @@ public class Conecta4 {
                 Elija un modo de juego:
                 1. Modo Fácil
                 2. Modo Medio
-                3. Modo Experto""");
+                3. Modo Experto
+                4. Modo Demencial
+                """);
 
             menu = sc.nextInt();
 
@@ -77,6 +79,15 @@ public class Conecta4 {
                         //Para cuando gana el jugador
 
                         if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
                             System.out.println("""
                                     .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
                                            :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
@@ -119,6 +130,14 @@ public class Conecta4 {
                         ganar = verificarVictoria(fichamaquina);
 
                         if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
 
                             System.out.println("""
                                     ________________                                     \s
@@ -173,6 +192,15 @@ public class Conecta4 {
                         //Para cuando gana el jugador
 
                         if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
                             System.out.println("""
                                     .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
                                            :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
@@ -221,6 +249,14 @@ public class Conecta4 {
                         ganar = verificarVictoria(fichamaquina);
 
                         if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
 
                             System.out.println("""
                                     ________________                                     \s
@@ -277,6 +313,15 @@ public class Conecta4 {
                         //Para cuando gana el jugador
 
                         if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
                             System.out.println("""
                                     .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
                                            :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
@@ -328,6 +373,14 @@ public class Conecta4 {
 
                         if (ganar) {
 
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
                             System.out.println("""
                                     ________________                                     \s
                                        |'-.--._ _________:                               \s
@@ -363,7 +416,136 @@ public class Conecta4 {
 
                     break;
                 //-----------------------------------------------------------------------------------------------------
+
+                case 4:
+
+                    ganar = false;
+
+                    iniciarTablero();
+
+                    // MODO DIFÍCIL
+
+                    while (!ganar) {
+
+                        //Turno del jugador
+                        imprimirTablero();
+
+                        insertarFicha(fichajugador);
+
+                        ganar = verificarVictoria(fichajugador);
+
+                        //Para cuando gana el jugador
+
+                        if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
+                            System.out.println("""
+                                    .    ..:+$&&&&&&&&Xx$&&&&&&&&&&&&&&&&+ .;:.   \s
+                                           :+ :;;;;;;:;++;;;;;;;:;;;;;;::x        \s
+                                           .$                            $.       \s
+                                           .$.      ··············      .$.       \s
+                                           .&:      :¡HAS GANADO!:      :$ .      \s
+                                         . .&.      ··············      ;X .;     \s
+                                         :  $.                          ;$  :     \s
+                                         ...&                            & ..     \s
+                                           .Xx$& &&&$  &&&&&&$  .&& :&&$x$        \s
+                                    .       ;$&x+&  & &&&&&&&&& &;&& &&&$;   ..   \s
+                                    :     .:     & && && ¬ ¬ && & &&       :. .   \s
+                                    .     . ..   && & &&& o && && &X    .:. ...   \s
+                                          :;;.    &  &X &&&&& && &&     :  :.     \s
+                                                  x&&  + $&    &&&      .::       \s
+                                                    &&&&     &&&X                 \s
+                                           .;;.        &  . +&    :.              \s
+                                          .:  .     .  &&   &&  :  .     .;;;.    \s
+                                        ... :;.     .  &&   && . :;.     .. ..    :
+                                        . .:.       .  &&   &&  ..       .;+;.    ;
+                                        ..            $& &+;&&                    :
+                                                      && &;& &&                   \s
+                                     .::...::......  ;& && &x&&  :.........;+:.   \s
+                                    :.....:;;;;;;;:  && &  x& &+ ;;:;:...;+:...::::
+                                    .   ...          & &.   &&&&         .  .  ...:
+                                    ...::.  ..      &&;&     & &     .::. ..:...  \s
+                                    :..    .......      :xXx & &   .. ...    .... \s
+                                    :      :.  ...:&&&&X     & &&&...   ::     .: \s
+                                                   +  $       & ..                \s
+                                    &&&&&&&&&&&&&&&X   &&&&&&&   &&&&&&&&&&&&&&&&&&
+                                    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&""");
+                            break;
+                        }
+                        //Turno de la IA
+
+                        imprimirTablero();
+
+                        preveerJugadaFila(fichajugador, fichamaquina);
+
+                        comprobarFilas(fichajugador, fichamaquina);
+
+                        preveerColumna(fichajugador, fichamaquina);
+
+                        comprobarColumnas(fichajugador, fichamaquina);
+
+                        comprobarDiagonales(fichajugador, fichamaquina);
+
+                        insertarFichaMaquina(fichamaquina);
+
+                        ganar = verificarVictoria(fichamaquina);
+
+                        if (ganar) {
+
+                            System.out.println();
+
+                            System.out.println("La última jugada");
+
+                            imprimirTablero();
+
+                            System.out.println();
+
+                            System.out.println("""
+                                    ________________                                     \s
+                                       |'-.--._ _________:                               \s
+                                       |  /    |  __    __\\         +====================+
+                                       | |  _  | [\\_\\= [\\_\\         |LA MAQUINA HA GANADO|
+                                       | |.' '. \\.........|         +====================+
+                                       | ( <)  ||:       :|_                             \s
+                                        \\ '._.' | :.....: |_(o                           \s
+                                         '-\\_   \\ .------./                              \s
+                                         _   \\   ||.---.||  _                            \s
+                                        / \\  '-._|/\\n~~\\n' | \\                           \s
+                                       (| []=.--[===[()]===[) |                          \s
+                                       <\\_/  \\_______/ _.' /_/                           \s
+                                       ///            (_/_/                              \s
+                                       |\\\\            [\\\\                                \s
+                                       ||:|           | I|                               \s
+                                       |::|           | I|                               \s
+                                       ||:|           | I|                               \s
+                                       ||:|           : \\:                               \s
+                                       |\\:|            \\I|                               \s
+                                       :/\\:            ([])                              \s
+                                       ([])             [|                               \s
+                                        ||              |\\_                              \s
+                                       _/_\\_            [ -'-.__                         \s
+                                      <]   \\>            \\_____.>                        \s
+                                        \\__/                                             \s""");
+
+                            break;
+                        }
+
+
+                    }
+
+                    break;
+                //-----------------------------------------------------------------------------------------------------
+
+
                 default:
+
                     System.out.println("Inserte una opción válida por favor");
 
             }
@@ -384,6 +566,7 @@ public class Conecta4 {
                         1. Modo Fácil
                         2. Modo Medio
                         3. Modo Experto
+                        4. Modo Demencial
                         """);
                 menu = sc.nextInt();
 
@@ -415,6 +598,25 @@ public class Conecta4 {
                             (i == filas - 1 || !tablero[i + 1][j - 1].equals(" "))) {
                         // Si se da alguna condición, la máquina bloqueará con una ficha
                         tablero[i][j - 1] = fichamaquina;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void preveerColumna(String fichajugador, String fichamaquina) {
+
+        for (int j = 0; j < columnas; j++) {
+            // Revisar de abajo hacia arriba en cada columna
+            for (int i = filas - 1; i >= 0; i--) {
+
+                // Verificar si hay 2 fichas consecutivas del jugador en la columna
+                if (i - 1 >= 0 && tablero[i][j].equals(fichajugador) && tablero[i - 1][j].equals(fichajugador)) {
+
+                    // Bloquear colocando la ficha de la máquina en la siguiente celda hacia abajo, si está vacía
+                    if (i - 2 >= 0 && tablero[i - 2][j].equals(" ")) {
+                        tablero[i - 2][j] = fichamaquina;
                         return;
                     }
                 }
