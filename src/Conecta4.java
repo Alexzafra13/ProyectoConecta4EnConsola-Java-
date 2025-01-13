@@ -50,6 +50,8 @@ public class Conecta4 {
 
 
 
+
+
         do {
             System.out.println("""
                 Elija un modo de juego:
@@ -593,9 +595,11 @@ public class Conecta4 {
                 default:
 
                     System.out.println("Inserte una opción válida por favor");
+                    break;
 
             }
 
+            //---------------------------------------------------------------------------------------------------------
             System.out.println("¿Quieres jugar otra partida? (sí/no)");
 
             partidanueva = sc.next();
@@ -624,6 +628,7 @@ public class Conecta4 {
         System.out.println("¡Gracias por jugar!");
 
     }
+    //------------------------------------------------------------------------------------------------------------------
     public static void priorizarVictoriaMaquina(String fichamaquina) {
         // Recorremos las celdas para ver las posibles jugadas
         for (int i = 0; i < filas; i++) {
